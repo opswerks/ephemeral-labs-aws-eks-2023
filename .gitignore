@@ -1,0 +1,5 @@
+.idea/
+**/.idea/
+.pulumi/
+**/.pulumi/
+.DS_Store

@@ -1,0 +1,6 @@
+encryptionsalt: v1:MJrYdVMLsO8=:v1:CzK8tZG7y8a4QDHA:+59yLF5eMg1wITrvQXI85vHmIPxrxQ==
+config:
+  training-labs:account-id: 163125487384
+  training-labs:image-repo: carbon-test-jupyter
+  training-labs:namespaces:
+    - training-labs
