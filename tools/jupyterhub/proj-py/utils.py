@@ -144,7 +144,7 @@ singleuser:
   image:
     name: {repo_url}
     tag: latest
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
     pullSecrets:
       - regcred
   serviceAccountName: {usr_svc_account}-svc-account

@@ -232,7 +232,7 @@ with open("values.yml", "w") as config_file:
 
 deploy_jupyter = local.Command(
 # Increment "jupyter_install_#" to let helm run
-                 "jupyter-install-06",
+                 "jupyter-install-07",
                  create=f"helm upgrade --install -n {data.get('namespace')} {data.get('chart-name')} {data.get('chart-name')}/{data.get('chart-name')} -f ./values.yml"
                  )
 
