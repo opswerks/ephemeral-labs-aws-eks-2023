@@ -10,7 +10,7 @@ from diagrams.onprem.vcs import Github
 from diagrams.onprem.client import Users
 from diagrams.custom import Custom
 
-with Diagram("AWS-EKS Intern Lab(s)", show=True, filename="intro-aws-eks"):
+with Diagram("AWS-EKS Intern Lab(s)", show=True, direction="LR", filename="intro-aws-eks"):
 
     intern_lab_fqdn = Route53("lab.opswerks.net")
     intern_lab_lb = ALB("JupyterHub Ingress")
@@ -34,20 +34,15 @@ with Diagram("AWS-EKS Intern Lab(s)", show=True, filename="intro-aws-eks"):
         sample_api_lab = []
         k8s_account = []
         irsa = []
-        for i in range(3):
-            user_ns.append(Namespace(f"Intern Network {i}"))
+        for i in range(2):
+            user_ns.append(Namespace(f"Intern Environment {i}"))
             with Cluster(f"User Lab {i}") as jupyter_notebook:
                 user_interface.append(Custom(f"Intern Notebook {i}", "./jupyter_notebook.png"))
-                sample_api_lab.append(Pod(f"Flask API {i}"))
                 k8s_account.append(ServiceAccount(f"K8s RBAC {i}"))
                 irsa.append(IAMRole(f"AWS IAM Role {i}"))
             user_ns[i] >> user_interface[i]
-            user_interface[i] >> sample_api_lab[i]
             k8s_account[i] << irsa[i]
 
-    interns >> intern_lab_fqdn >> intern_k8s_cluster >> intern_lab_lb >>  jupyterhub_svc
+    interns >> intern_lab_fqdn >> intern_k8s_cluster >> intern_lab_lb >> jupyterhub_svc >> jupyterhub_srv >> user_ns
     intern_k8s_cluster >> intern_lab_img_repo
-    jupyterhub_svc >> jupyterhub_srv
-    jupyterhub_srv >> intern_lab_img_repo
     jupyterhub_srv >> jupyterhub_sso
-    jupyterhub_srv >> user_ns

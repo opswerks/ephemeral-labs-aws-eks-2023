@@ -1,0 +1,6 @@
+pulumi>=3.0.0,<4.0.0
+pulumi-kubernetes>=3.0.0,<4.0.0
+pulumi-aws>=5.0.0,<6.0.0
+pulumi-eks
+pulumi_docker
+pulumi_command

@@ -1,0 +1,19 @@
+encryptionsalt: v1:AgkimExZJpo=:v1:2HLm87eZjZEOUm/y:AzDXSbwTfQCy4m8WygZkPJOVuvkGFg==
+config:
+  aws:region: us-west-2
+  jupyterhub:details:
+    account: 431522258999
+    eks-cluster: opswerks-apps-eks
+    user-domain: sandbox.opswerks.net
+    org-allow: opswerks
+    namespace: aws2023
+    ecr-repo: ephemeral-labs
+    chart-name: jupyterhub
+    vault: smsapqdjt6r2326pphfotog5p4
+    item: bvz42rmru5fl2443qwmo46yt2i
+    gh-secret: gh-credentials
+    user-namespace: lab-jpperdon
+    user-svc-account: aws2023
+    tags:
+      purpose: awscommunity2023
+      team: data
