@@ -1,0 +1,3 @@
+name: jupyterhub
+runtime: python
+description: AWS Community Ephemeral Lab Demo
