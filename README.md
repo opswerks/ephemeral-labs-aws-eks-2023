@@ -20,7 +20,7 @@ The code also expects an already existing K8s cluster as the IAC does not includ
    4. [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)
    5. [Helm](https://helm.sh/docs/intro/install/#from-homebrew-macos)
       1. Had to run helm via CLI (pulumi_command.local.Command) due to a bug encountered via Pulumi
-   6. Authentication/Autorizations: [Github OAUTH](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
+   6. Authentication/Authorizations: [Github OAUTH](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps)
       1. Other tool(s) can be used as well (Google OAUTH, Gitlab OAUT, Okta, etc...)  
 2. Setup
    1. Clone this repository
