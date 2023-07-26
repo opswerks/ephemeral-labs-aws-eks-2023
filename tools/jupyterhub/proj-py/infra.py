@@ -200,6 +200,65 @@ lab_svc_account = k8s.core.v1.ServiceAccount(f"{data.get('user-svc-account')}-se
                       opts=ResourceOptions(provider=k8s_provider)
                   )
 
+lab_svc_role = k8s.rbac.v1.Role(f"{data.get('user-svc-account')}-role",
+                   metadata=k8s.meta.v1.ObjectMetaArgs(
+                                name=f"{data.get('user-svc-account')}-role",
+                                namespace=f"{data.get('user-namespace')}"
+                   ),
+                   rules=[
+                        {
+                            "apiGroups": ["*"],
+                            "resources": [
+                                "pods",
+                                "secrets",
+                                "configmaps",
+                                "services"
+                            ],
+                            "verbs": [
+                                "get",
+                                "list",
+                                "watch",
+                                "create",
+                                "update",
+                                "patch",
+                                "delete"
+                            ],
+                        }
+                   ],
+                   opts=ResourceOptions(provider=k8s_provider)
+               )
+
+lab_svc_rbinding = k8s.rbac.v1.RoleBinding(
+    f"{data.get('user-svc-account')}-role-binding",
+    metadata=k8s.meta.v1.ObjectMetaArgs(
+                 name=f"{data.get('user-svc-account')}-role-binding",
+                 namespace=f"{data.get('user-namespace')}"
+             ),
+    subjects=[k8s.rbac.v1.SubjectArgs(
+        kind="ServiceAccount",
+        name=f"{data.get('user-svc-account')}-svc-account",
+        namespace=f"{data.get('user-namespace')}",
+    )],
+    role_ref=k8s.rbac.v1.RoleRefArgs(
+        api_group="rbac.authorization.k8s.io",
+        kind="Role",
+        name=lab_svc_role.metadata["name"],
+    ),
+    opts=ResourceOptions(provider=k8s_provider),
+)
+
+lab_quota = k8s.core.v1.ResourceQuota(
+                "lab-quota",
+                metadata=k8s.meta.v1.ObjectMetaArgs(
+                             namespace=f"{data.get('user-namespace')}",
+                ),
+                spec=k8s.core.v1.ResourceQuotaSpecArgs(
+                         hard={
+                                "pods": "3",
+                                "requests.memory": "5Gi",
+                         }
+                     )
+            )
 
 values_render = values_tpl.format(
     app_name=data.get('tags')['purpose'],
@@ -230,11 +289,18 @@ with open("values.yml", "w") as config_file:
 #                      )
 #               )
 
-deploy_jupyter = local.Command(
-# Increment "jupyter_install_#" to let helm run
-                 "jupyter-install-07",
-                 create=f"helm upgrade --install -n {data.get('namespace')} {data.get('chart-name')} {data.get('chart-name')}/{data.get('chart-name')} -f ./values.yml"
-                 )
+if data.get("deploy") == True:
+    deploy_jupyter = local.Command(
+    # Increment "jupyter_install_#" to let helm run
+                     "jupyter-install-11",
+                     create=f"helm upgrade --install -n {data.get('namespace')} {data.get('chart-name')} {data.get('chart-name')}/{data.get('chart-name')} -f ./values.yml"
+                     )
+elif data.get("deploy") == False:
+    destroy_jupyter = local.Command(
+        # Increment "jupyter_install_#" to let helm run
+        "jupyter-destroy",
+        create=f"helm uninstall -n {data.get('namespace')} {data.get('chart-name')} --dry-run --debug"
+    )
 
 jupyter_cert = aws.acm.get_certificate(domain=f"*.{data.get('user-domain')}", types=["AMAZON_ISSUED"])
 

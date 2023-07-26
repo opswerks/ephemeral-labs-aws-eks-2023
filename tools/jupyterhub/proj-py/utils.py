@@ -97,7 +97,8 @@ hub:
       c.KubeSpawner.user_namespace_template = u'lab-{{username}}'
       c.KubeSpawner.environment = {{
           'JUPYTERHUB_API_URL': 'http://hub.{hub_ns}.svc.cluster.local:8081/hub/api'
-      }}      
+      }}
+            
       c.KubeSpawner.profile_list = [
         {{
             'display_name': 'A1T-ITN1: Introduction to Networks',
@@ -151,13 +152,19 @@ singleuser:
   cloudMetadata:
     blockWithIptables: false
   allowPrivilegeEscalation: true
+  # extraEnv:
+  #   - name: K8S_NAMESPACE
+  #     valueFrom:
+  #       fieldRef:
+  #         fieldPath: metadata.namespace
   lifecycleHooks:
     postStart:
       exec:
         command:
         - "sh"
         - "-c"
-        - >
+        - > 
+           kubectl -n $(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace) apply -f https://raw.githubusercontent.com/opswerks/ephemeral-labs-aws-eks-2023/main/addons/hub-svc.yml;
            git clone https://github.com/jpperdon/sample-notebooks.git AWS-Community-2023_Ephemeral-Labs-Demo || true     
 prePuller:
   hook:

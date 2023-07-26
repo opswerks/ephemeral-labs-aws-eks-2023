@@ -2,6 +2,7 @@ encryptionsalt: v1:AgkimExZJpo=:v1:2HLm87eZjZEOUm/y:AzDXSbwTfQCy4m8WygZkPJOVuvkG
 config:
   aws:region: us-west-2
   jupyterhub:details:
+    deploy: True
     account: 431522258999
     eks-cluster: opswerks-apps-eks
     user-domain: sandbox.opswerks.net
