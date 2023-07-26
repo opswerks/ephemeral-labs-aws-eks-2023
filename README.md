@@ -45,3 +45,6 @@ The code also expects an already existing K8s cluster as the IAC does not includ
    * https://www.pulumi.com/registry/packages/kubernetes/api-docs/
    * https://www.pulumi.com/registry/packages/docker/api-docs/
    * https://www.pulumi.com/registry/packages/command/api-docs/local/command/
+
+#### Notebook:
+- https://github.com/jpperdon/sample-notebooks/blob/main/aws-community-2023-exercises.ipynb

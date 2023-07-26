@@ -17,7 +17,7 @@ with Diagram("AWS-EKS Intern Lab(s)", show=True, direction="LR", filename="intro
     jupyterhub_sso = Github("OAUTH Identity")
 
     with Cluster("Academy Intern(s)") as academy_interns:
-        interns = Users("Jupyter Lab User(S)")
+        interns = Users("Jupyter Lab User(s)")
 
     with Cluster("AWS Service(s)") as aws_services:
         intern_k8s_cluster = EKS("Academy K8s Cluster")
