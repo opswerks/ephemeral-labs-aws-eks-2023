@@ -1,6 +1,12 @@
 # ephemeral-labs-aws-eks-2023
 
 ### Architecture:
+- To build the diagram
+  - Requires Python: `$(cat architecture/runtime.txt)
+  ```
+  cd architecture/ && pip install -r requirements.txt
+  python arch_diagrams.py
+  ```
 
 ![Architecture](./architecture/intro-aws-eks.png)
 
@@ -48,3 +54,7 @@ The code also expects an already existing K8s cluster as the IAC does not includ
 
 #### Notebook:
 - https://github.com/jpperdon/sample-notebooks/blob/main/aws-community-2023-exercises.ipynb
+
+### Limitation(s) & Recommendation(s):
+- The setup concept for this repository is to be able to run it with just a laptop and an access to an AWS-EKS cluster
+  - For better DevOps practices, the code can be broken down into bits and pieces in a better `pipeline-as-code` order 
