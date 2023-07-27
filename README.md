@@ -2,7 +2,7 @@
 
 ### Architecture:
 - To build the diagram
-  - Requires Python: `$(cat architecture/runtime.txt)
+  - Requires Python: `$(cat architecture/runtime.txt)`
   ```
   cd architecture/ && pip install -r requirements.txt
   python arch_diagrams.py
