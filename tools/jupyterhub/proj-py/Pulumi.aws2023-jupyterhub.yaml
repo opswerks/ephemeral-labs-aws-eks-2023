@@ -3,8 +3,10 @@ config:
   aws:region: us-west-2
   jupyterhub:details:
     deploy: True
-    account: 431522258999
+    # Change this to your AWS Account ID
+    account: 012345678910
     eks-cluster: opswerks-apps-eks
+    # Change this to your hosted zone
     user-domain: sandbox.opswerks.net
     org-allow: opswerks
     namespace: aws2023
